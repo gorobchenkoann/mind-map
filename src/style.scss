@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.svg {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    border: 1px solid #000000;
+}
+
+.point {
+    fill: #f50f0f;
+    r: 6;
+
+    &--active {
+        fill: #f3d31c;
+        r: 8;
+    }
+}
