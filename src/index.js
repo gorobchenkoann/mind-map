@@ -11,8 +11,7 @@ function makeId() {
 function createNode(selection) {
     let id = makeId();
     let [x, y] = d3.mouse(selection);
-    // Добавляет прямоугольную область вокруг circle,
-    // чтобы точки не располагались слишком близко
+ 
     d3.select(selection).append('rect') 
         .attr('x', x - CIRCLE_PADDING / 2)
         .attr('y', y - CIRCLE_PADDING / 2)
@@ -57,4 +56,4 @@ function mouseUpHandler() {
 
 d3.select('svg')
     .on('mousedown', mouseDownHandler)
-    
+ 
