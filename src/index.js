@@ -8,17 +8,18 @@ function makeId() {
     return Math.random().toString(36).substr(2, 9);
 };
 
-function createNode(selection) {
+function createNode() {
     let id = makeId();
-    let [x, y] = d3.mouse(selection);
+    let x = d3.event.clientX;
+    let y = d3.event.clientY;
  
-    d3.select(selection).append('rect') 
+    d3.select('svg').append('rect') 
         .attr('x', x - CIRCLE_PADDING / 2)
         .attr('y', y - CIRCLE_PADDING / 2)
         .attr('width', CIRCLE_PADDING)
         .attr('height', CIRCLE_PADDING)
         .attr('fill', 'transparent')         
-    d3.select(selection).append('circle')
+    d3.select('svg').append('circle')
         .attr('cx', x)
         .attr('cy', y)
         .attr('class', 'point')
@@ -43,7 +44,7 @@ function mouseUpHandler() {
     console.log('up')
     if (d3.event.target.tagName === 'svg') {
         if (mouseDownElement === 'svg') {
-            createNode(this);
+            createNode();
         }        
     } else if (d3.event.target.tagName === 'circle') {
         console.log('circle')
