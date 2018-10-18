@@ -21,6 +21,7 @@ function Line(props) {
             y1={props.y1}
             x2={props.x2}
             y2={props.y2}
+            onClick={props.onClick}
         >            
         </line>
     )
@@ -107,8 +108,17 @@ export class App extends React.Component {
         
     };
 
+    lineClickHandler(lineId) {
+        let lineIndex = this.state.lines.findIndex(line => line.id === lineId);
+        let newLines = this.state.lines;
+        newLines.splice(lineIndex, 1);
+        this.setState({
+            lines: newLines
+        })
+    }
+
     render() {
-        return (
+        return (         
             <svg 
                 className={styles.svg}
                 onMouseDown={(e) => {this.mouseDownHandler(e)}}
@@ -116,10 +126,21 @@ export class App extends React.Component {
                 onMouseUp={(e) => {this.mouseUpHandler(e)}}
             >
             {this.state.lines.map(line => (
-                <Line x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} key={line.id}/>
+                <Line 
+                    x1={line.x1} 
+                    y1={line.y1} 
+                    x2={line.x2} 
+                    y2={line.y2} 
+                    key={line.id} 
+                    onClick={()=>{this.lineClickHandler(line.id)}}
+                />
             ))}
             {this.state.nodes.map(node => (
-                <Node x={node.x} y={node.y} key={node.id} />
+                <Node 
+                    x={node.x} 
+                    y={node.y} 
+                    key={node.id} 
+                />
             ))}
             </svg>
         )
