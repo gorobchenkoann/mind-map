@@ -1,0 +1,9 @@
+.line {
+    stroke: #896899;
+    stroke-width: 2;
+
+    &:hover {
+        cursor: pointer;
+        stroke-width: 4;
+    }
+}

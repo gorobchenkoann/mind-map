@@ -1,0 +1,23 @@
+.node {
+    position: absolute;
+    padding: 5px;
+    background-color: #ffffff;
+    border: 2px solid #9d78af;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+
+    &:hover,
+    &:focus {
+        border-color: #6f517e;
+    }
+
+    &:empty::before {
+        content: attr(placeholder);
+        color: #b6b6b6;
+    }
+
+    &:empty:focus::before {
+        content: '';
+    }
+}
