@@ -33,12 +33,7 @@ export class Node extends React.Component {
                             
             >
             <div
-                style={{
-                    width: '100px',
-                    height: '40px',
-                    margin: 'auto',
-                    outline: 'none'
-                }}
+                className={styles.editor}
                 ref={this.node}
                 contentEditable={true}  
                 placeholder={'Type something...'}  

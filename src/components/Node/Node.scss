@@ -10,11 +10,19 @@
     &:hover,
     &:focus {
         border-color: #6f517e;
-    }
+    }    
+}
+
+.editor {
+    width: 100px;
+    min-height: 40px;
+    margin: auto;
+    outline: none;
 
     &:empty::before {
         content: attr(placeholder);
-        color: #b6b6b6;
+        color: #818181;
+        font-size: 12px;
     }
 
     &:empty:focus::before {
