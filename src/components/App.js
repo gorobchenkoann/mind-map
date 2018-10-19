@@ -16,7 +16,7 @@ function Node(props) {
 function Line(props) {
     return (
         <path className={styles.line} onClick={props.onClick}
-            d={`M${props.x1} ${props.y1} C${props.x2} ${props.y2}`}
+            d={`M${props.x1} ${props.y1} L ${props.x2} ${props.y2}`}
         >
         </path>
     )
