@@ -15,15 +15,10 @@ function Node(props) {
 
 function Line(props) {
     return (
-        <line
-            className={styles.line}
-            x1={props.x1}
-            y1={props.y1}
-            x2={props.x2}
-            y2={props.y2}
-            onClick={props.onClick}
-        >            
-        </line>
+        <path className={styles.line} onClick={props.onClick}
+            d={`M${props.x1} ${props.y1} C${props.x2} ${props.y2}`}
+        >
+        </path>
     )
 }
 
