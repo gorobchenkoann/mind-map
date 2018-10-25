@@ -1,6 +1,9 @@
 .node {
     position: absolute;
-    padding: 5px;
+    display: flex;
+    width: 140px;
+    min-height: 60px;
+    padding: 10px;
     background-color: #ffffff;
     border: 2px solid #9d78af;
     border-radius: 5px;
@@ -15,7 +18,7 @@
 
 .editor {
     width: 100px;
-    min-height: 40px;
+    margin: 0;
     margin: auto;
     outline: none;
 

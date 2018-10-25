@@ -22,23 +22,20 @@ export class Node extends React.Component {
                 data-element='node'                
                 className={styles.node}
                 style={{
-                    display: 'flex',
                     top: this.props.y - 30 + 'px',
-                    left: this.props.x - 70 + 'px',
-                    width: '140px',
-                    minHeight: '60px'
+                    left: this.props.x - 70 + 'px'                    
                 }}
                 onClick={()=>{this.focusNode()}}
                 onFocus={()=>{this.focusNode()}}
                             
             >
-            <div
-                className={styles.editor}
-                ref={this.node}
-                contentEditable={true}  
-                placeholder={'Type something...'}  
-            >
-            </div>
+                <div
+                    className={styles.editor}
+                    ref={this.node}
+                    contentEditable={true}  
+                    placeholder={'Type something...'}  
+                >
+                </div>
             </div>
         )
     }    
