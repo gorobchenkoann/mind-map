@@ -41,10 +41,15 @@ export class App extends React.Component {
             lines: [...this.state.lines, {id, x1, y1, x2, y2}],
             currentLine: id
         })
-    }
+    };
+
+    doubleClickHandler(e) {
+        if (e.target.getAttribute('data-element') === 'container') {
+            this.createNode(e);
+        }
+    };
 
     mouseDownHandler(e) {
-        e.preventDefault();
 
         if (e.target.getAttribute('data-element') === 'node') {
             this.createLine(e); 
@@ -82,10 +87,7 @@ export class App extends React.Component {
             
         // } else if (e.target.tagName === 'svg') {
         //     this.createNode(e);
-        // } 
-        if (e.target.getAttribute('data-element') === 'container') {
-            this.createNode(e);
-        }
+        // }         
     };
 
     lineClickHandler(lineId) {
@@ -95,13 +97,14 @@ export class App extends React.Component {
         this.setState({
             lines: newLines
         })
-    }
+    };
 
     render() {
         return (  
             <div 
                 data-element='container'
                 className={styles.container}
+                onDoubleClick={(e) => {this.doubleClickHandler(e)}}
                 onMouseDown={(e) => {this.mouseDownHandler(e)}}
                 onMouseMove={(e) => {this.mouseMoveHandler(e)}}
                 onMouseUp={(e) => {this.mouseUpHandler(e)}}

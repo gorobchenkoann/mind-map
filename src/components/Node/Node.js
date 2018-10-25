@@ -26,8 +26,7 @@ export class Node extends React.Component {
                     left: this.props.x - 70 + 'px'                    
                 }}
                 onClick={()=>{this.focusNode()}}
-                onFocus={()=>{this.focusNode()}}
-                            
+                onFocus={()=>{this.focusNode()}}                              
             >
                 <div
                     className={styles.editor}
