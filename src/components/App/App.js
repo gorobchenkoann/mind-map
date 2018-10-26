@@ -5,14 +5,10 @@ import {Node} from '../';
 import {Line} from '../';
 
 export class App extends React.Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            nodes: [],
-            lines: [],
-            currentLine: null
-        }
+    state = {
+        nodes: [],
+        lines: [],
+        currentLine: null
     }
 
     makeId() {
@@ -43,13 +39,13 @@ export class App extends React.Component {
         })
     };
 
-    doubleClickHandler(e) {
+    doubleClickHandler = e => {
         if (e.target.getAttribute('data-element') === 'container') {
             this.createNode(e);
         }
     };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
 
         if (e.target.getAttribute('data-element') === 'node') {
             this.createLine(e); 
@@ -57,7 +53,7 @@ export class App extends React.Component {
 
     };
 
-    mouseMoveHandler(e) {
+    mouseMoveHandler = e => {
         if (this.state.currentLine) {
             let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
             let updatedLines = this.state.lines;
@@ -69,7 +65,7 @@ export class App extends React.Component {
         }
     };
 
-    mouseUpHandler(e) {  
+    mouseUpHandler = e => {  
         // if (this.state.currentLine) {
         //     if (e.target.tagName === 'circle'){
         //         let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
@@ -104,10 +100,10 @@ export class App extends React.Component {
             <div 
                 data-element='container'
                 className={styles.container}
-                onDoubleClick={(e) => {this.doubleClickHandler(e)}}
-                onMouseDown={(e) => {this.mouseDownHandler(e)}}
-                onMouseMove={(e) => {this.mouseMoveHandler(e)}}
-                onMouseUp={(e) => {this.mouseUpHandler(e)}}
+                onDoubleClick={this.doubleClickHandler}
+                onMouseDown={this.mouseDownHandler}
+                onMouseMove={this.mouseMoveHandler}
+                onMouseUp={this.mouseUpHandler}
             >
                 {this.state.lines.map(line => (
                     <Line 

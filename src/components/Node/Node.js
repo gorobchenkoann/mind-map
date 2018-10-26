@@ -3,16 +3,16 @@ import React from 'react';
 import styles from './Node.scss';
 
 export class Node extends React.Component {
-    constructor(props) {
-        super(props);
-        this.node = React.createRef();
+    state = {
+        focused: false
     }
-
+    node = React.createRef();
+    
     componentDidMount() {
         this.focusNode();
     }
 
-    focusNode() {
+    focusNode = () => {
         this.node.current.focus();
     }
 
@@ -33,8 +33,8 @@ export class Node extends React.Component {
                 <div className={styles.header}>
                 </div>
                 <div
-                    onClick={()=>{this.focusNode()}}
-                    onFocus={()=>{this.focusNode()}}   
+                    onClick={this.focusNode}
+                    onFocus={this.focusNode}   
                     className={styles.editor}
                     ref={this.node}
                     contentEditable={true}  
