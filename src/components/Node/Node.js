@@ -12,29 +12,45 @@ export class Node extends React.Component {
         this.focusNode();
     }
 
-    focusNode = () => {
+    focusNode = () => {   
+        this.setState({
+            focused: true,
+        });     
         this.node.current.focus();
+    }
+
+    blurNode = (e) => {
+        this.setState({
+            focused: false
+        })
+    }
+
+    onclick = e => {
+        console.log('kek')
     }
 
     render() {
         return (       
-            <div 
-                data-element='node'                
+            <div                              
                 className={styles.node}
                 style={{
                     top: this.props.y - 50 + 'px',
                     left: this.props.x - 90 + 'px'                    
-                }}                                           
+                }}            
+                onClick={this.focusNode}
+                onFocus={this.focusNode}  
+                // onBlur={this.blurNode}                                
             >
-                <div className={`${styles.controller} ${styles.top}`}></div>
-                <div className={`${styles.controller} ${styles.bottom}`}></div>
-                <div className={`${styles.controller} ${styles.left}`}></div>
-                <div className={`${styles.controller} ${styles.right}`}></div>
-                <div className={styles.header}>
-                </div>
-                <div
-                    onClick={this.focusNode}
-                    onFocus={this.focusNode}   
+            {this.state.focused && 
+                <React.Fragment>
+                    <div data-element='controller' className={`${styles.controller} ${styles.top}`}></div>
+                    <div data-element='controller' className={`${styles.controller} ${styles.bottom}`}></div>
+                    <div data-element='controller' className={`${styles.controller} ${styles.left}`}></div>
+                    <div data-element='controller' className={`${styles.controller} ${styles.right}`}></div>
+                </React.Fragment>
+            }                
+                <div className={styles.header}></div>
+                <div                    
                     className={styles.editor}
                     ref={this.node}
                     contentEditable={true}  
