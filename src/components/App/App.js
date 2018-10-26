@@ -16,16 +16,6 @@ export class App extends React.Component {
         return Math.random().toString(36).substr(2, 9);
     };
 
-    getControllerCoords(e) {
-        let element = e.target.getBoundingClientRect();
-        let horizontal = element.left + element.width / 2 || element.right + element.width / 2;
-        let vertical = element.top + element.height / 2 || element.bottom + element.height / 2;
-        return({
-            horizontal: horizontal,
-            vertical: vertical
-        })
-    }
-
     createNode(e) {
         let id = this.makeId();
         let x = e.clientX - 90;
@@ -35,21 +25,6 @@ export class App extends React.Component {
             nodes: [...this.state.nodes, {id, x, y}]
         }) 
     }
-
-    createLine(e) {
-        let coords = this.getControllerCoords(e);
-        let id = this.makeId();
-        let x1 = coords.horizontal;
-        let y1 = coords.vertical;
-
-        let x2 = e.clientX;
-        let y2 = e.clientY;
-
-        this.setState({
-            lines: [...this.state.lines, {id, x1, y1, x2, y2}],
-            currentLine: id
-        })
-    };
 
     doubleClickHandler = e => {
         this.createNode(e);
@@ -64,19 +39,26 @@ export class App extends React.Component {
             })
         }
         if (e.target.getAttribute('data-element') === 'controller') {
-            this.createLine(e); 
+            let id = this.makeId();
+            console.log(e.target)
+            let from = e.target.getBoundingClientRect();
+            let to = e.target.getBoundingClientRect();
+            this.setState({
+                lines: [...this.state.lines, {id, from, to}],
+                currentLine: id
+            })
         }
     };
 
     mouseMoveHandler = e => {
         if (this.state.currentLine) {
-            let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
-            let updatedLines = this.state.lines;
-            updatedLines[currentLineIndex].x2 = e.clientX;
-            updatedLines[currentLineIndex].y2 = e.clientY;
-            this.setState({
-                lines: updatedLines
-            })
+            // let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
+            // let updatedLines = this.state.lines;
+            // updatedLines[currentLineIndex].x2 = e.clientX;
+            // updatedLines[currentLineIndex].y2 = e.clientY;
+            // this.setState({
+            //     lines: updatedLines
+            // })
         } else if (this.state.currentNode) {
             let currentCoords = {
                 x: e.clientX - 90, // 90 - half of element's width
@@ -107,12 +89,14 @@ export class App extends React.Component {
 
     mouseUpHandler = e => {  
         if (this.state.currentLine) {
-            if (e.target.getAttribute('data-element') === 'controller') {                
+            if (e.target.getAttribute('data-element') === 'controller') { 
+                let to = e.target.getBoundingClientRect();               
                 let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
                 let updatedLines = this.state.lines;
-                let coords = this.getControllerCoords(e);
-                updatedLines[currentLineIndex].x2 = coords.horizontal;
-                updatedLines[currentLineIndex].y2 = coords.vertical;
+                updatedLines[currentLineIndex].to = to;
+                //     // let coords = this.getControllerCoords(e);
+                //     // updatedLines[currentLineIndex].x2 = coords.horizontal;
+                //     // updatedLines[currentLineIndex].y2 = coords.vertical;                
             } else {
                 let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
                 let updatedLines = this.state.lines;
@@ -153,10 +137,12 @@ export class App extends React.Component {
             >
                 {this.state.lines.map(line => (
                     <Line 
-                        x1={line.x1} 
-                        y1={line.y1} 
-                        x2={line.x2} 
-                        y2={line.y2} 
+                        // x1={line.x1} 
+                        // y1={line.y1} 
+                        // x2={line.x2} 
+                        // y2={line.y2} 
+                        from={line.from}
+                        to={line.to}
                         key={line.id} 
                         onClick={this.lineClickHandler}
                     />
