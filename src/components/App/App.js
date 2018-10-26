@@ -8,6 +8,7 @@ export class App extends React.Component {
     state = {
         nodes: [],
         lines: [],
+        currentNode: null,
         currentLine: null
     }
 
@@ -27,8 +28,8 @@ export class App extends React.Component {
 
     createNode(e) {
         let id = this.makeId();
-        let x = e.clientX;
-        let y = e.clientY;
+        let x = e.clientX - 90;
+        let y = e.clientY - 50;
  
         this.setState({
             nodes: [...this.state.nodes, {id, x, y}]
@@ -55,6 +56,13 @@ export class App extends React.Component {
     };
 
     mouseDownHandler = e => {
+        if (e.target.getAttribute('data-element') === 'header') {
+            let currentNode = e.target.parentElement.getBoundingClientRect();
+            let currentNodeId = e.target.parentElement.getAttribute('id');
+            this.setState({
+                currentNode: {info: currentNode, id: currentNodeId}
+            })
+        }
         if (e.target.getAttribute('data-element') === 'controller') {
             this.createLine(e); 
         }
@@ -68,6 +76,31 @@ export class App extends React.Component {
             updatedLines[currentLineIndex].y2 = e.clientY;
             this.setState({
                 lines: updatedLines
+            })
+        } else if (this.state.currentNode) {
+            let currentCoords = {
+                x: e.clientX - 90, // 90 - half of element's width
+                y: e.clientY - 12.5 // 12.5 - half of element's header height
+            }
+            let updatedNodes = this.state.nodes;
+            let currentNodeIndex = this.state.nodes.findIndex(node => node.id === this.state.currentNode.id)
+            if (currentCoords.x < 0) {
+                currentCoords.x = 10;
+            }
+            if (currentCoords.y < 0) {
+                currentCoords.y = 10;
+            }
+            if (currentCoords.x + 180 > e.currentTarget.offsetWidth) {
+                currentCoords.x = e.currentTarget.offsetWidth - 190;
+            }
+            if (currentCoords.y + 120 > e.currentTarget.offsetHeight) {
+                currentCoords.y = e.currentTarget.offsetHeight - 125;
+            }
+           
+            updatedNodes[currentNodeIndex].x = currentCoords.x;
+            updatedNodes[currentNodeIndex].y = currentCoords.y; 
+            this.setState({
+                nodes: updatedNodes
             })
         }
     };
@@ -88,6 +121,12 @@ export class App extends React.Component {
             
             this.setState({
                 currentLine: null
+            })
+        }
+
+        if (this.state.currentNode) {
+            this.setState({
+                currentNode: null
             })
         }
                
@@ -123,7 +162,7 @@ export class App extends React.Component {
                     />
                 ))}
                 {this.state.nodes.map(node => (
-                    <Node x={node.x} y={node.y} key={node.id}/>
+                    <Node x={node.x} y={node.y} key={node.id} id={node.id}/>
                 ))}                
             </div>        
         )

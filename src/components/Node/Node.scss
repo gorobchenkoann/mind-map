@@ -17,6 +17,10 @@ $controll-diameter: 14px;
     height: $header-height;
     border-bottom: 1px solid #bdbdbd;
     background-color: #dadada;
+
+    &:hover {
+        cursor: move;
+    }
 }
 
 .editor {
@@ -25,15 +29,15 @@ $controll-diameter: 14px;
     background-color: #ffffff;
     outline: none;
 
-    &:empty::before {
-        content: attr(placeholder);
-        color: #818181;
-        font-size: 12px;
-    }
+    // &:empty::before {
+    //     content: attr(placeholder);
+    //     color: #818181;
+    //     font-size: 12px;
+    // }
 
-    &:empty:focus::before {
-        content: '';
-    }
+    // &:empty:focus::before {
+    //     content: '';
+    // }
 }
 
 .controller {
