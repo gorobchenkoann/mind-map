@@ -10,12 +10,7 @@ $controll-diameter: 14px;
     min-height: $node-height;
     border: 1px solid #bdbdbd;
     box-sizing: border-box;
-    outline: none;
-
-    &:hover,
-    &:focus {
-        border-color: #747474;
-    }    
+    outline: none; 
 }
 
 .header {
