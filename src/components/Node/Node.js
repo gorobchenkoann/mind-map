@@ -17,18 +17,24 @@ export class Node extends React.Component {
     }
 
     render() {
-        return (            
+        return (       
             <div 
                 data-element='node'                
                 className={styles.node}
                 style={{
-                    top: this.props.y - 30 + 'px',
-                    left: this.props.x - 70 + 'px'                    
-                }}
-                onClick={()=>{this.focusNode()}}
-                onFocus={()=>{this.focusNode()}}                              
+                    top: this.props.y - 50 + 'px',
+                    left: this.props.x - 90 + 'px'                    
+                }}                                           
             >
+                <div className={`${styles.controller} ${styles.top}`}></div>
+                <div className={`${styles.controller} ${styles.bottom}`}></div>
+                <div className={`${styles.controller} ${styles.left}`}></div>
+                <div className={`${styles.controller} ${styles.right}`}></div>
+                <div className={styles.header}>
+                </div>
                 <div
+                    onClick={()=>{this.focusNode()}}
+                    onFocus={()=>{this.focusNode()}}   
                     className={styles.editor}
                     ref={this.node}
                     contentEditable={true}  

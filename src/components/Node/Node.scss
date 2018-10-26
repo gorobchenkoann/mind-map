@@ -1,25 +1,33 @@
+$node-width: 180px;
+$node-height: 100px;
+$editor-height: 75px;
+$header-height: $node-height - $editor-height;
+$controll-diameter: 14px;
+
 .node {
     position: absolute;
-    display: flex;
-    width: 140px;
-    min-height: 60px;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 2px solid #9d78af;
-    border-radius: 5px;
+    width: $node-width;
+    min-height: $node-height;
+    border: 1px solid #bdbdbd;
     box-sizing: border-box;
     outline: none;
 
     &:hover,
     &:focus {
-        border-color: #6f517e;
+        border-color: #747474;
     }    
 }
 
+.header {
+    height: $header-height;
+    border-bottom: 1px solid #bdbdbd;
+    background-color: #dadada;
+}
+
 .editor {
-    width: 100px;
-    margin: 0;
-    margin: auto;
+    min-height: $editor-height;
+    padding: 5px;
+    background-color: #ffffff;
     outline: none;
 
     &:empty::before {
@@ -31,4 +39,37 @@
     &:empty:focus::before {
         content: '';
     }
+}
+
+.controller {
+    display: none;
+    position: absolute;
+    width: $controll-diameter;
+    height: $controll-diameter;
+    border-radius: 50%;
+    background-color: #e987d9;
+}
+
+.top {
+    top: -($controll-diameter / 2);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bottom {
+    bottom: -($controll-diameter / 2);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.left {
+    top: 50%;
+    transform: translateY(-50%);
+    left: -($controll-diameter / 2);
+}
+
+.right {
+    top: 50%;
+    transform: translateY(-50%);
+    right: -($controll-diameter / 2);
 }
