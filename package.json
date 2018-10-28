@@ -18,6 +18,7 @@
     "postcss-modules": "^1.4.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-icons": "^3.2.2",
     "sass": "^1.14.2",
     "slate": "^0.43.0",
     "slate-react": "^0.19.8"

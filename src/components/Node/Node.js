@@ -1,4 +1,6 @@
 import React from 'react';
+import { IconContext } from 'react-icons';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
 
@@ -75,10 +77,12 @@ export class Node extends React.Component {
                         className={styles.button}
                     >
                         {this.state.showEditor ? 
-                        <img src={buttonIcon} alt='hide editor'></img> :
-                        <img src={buttonIcon} 
-                            style={{transform: 'rotate(180deg)'}}
-                            alt='show editor'></img>
+                        <IconContext.Provider value={{ color: '#e987d9'}}>
+                            <FaAngleUp />
+                        </IconContext.Provider> :
+                        <IconContext.Provider value={{ color: '#e987d9'}}>
+                            <FaAngleDown />
+                        </IconContext.Provider>
                         }
                     </button>
                 </div>
