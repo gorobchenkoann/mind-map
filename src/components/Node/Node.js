@@ -3,28 +3,38 @@ import { Editor } from 'slate-react';
 import { Value } from 'slate';
 
 import styles from './Node.scss';
+import buttonIcon from './drop-up-arrow.png';
 
 export class Node extends React.Component {    
     state = {
-        focused: false,
+        mouseOn: false,
         showEditor: true
     }
     node = React.createRef();
-    
+      
     componentDidMount() {
         this.focusNode();
     }
 
-    focusNode = () => {   
-        this.setState({
-            focused: true,
-        });     
+    focusNode = () => {    
         this.node.current.focus();
     }
 
-    blurNode = (e) => {
+
+    headerClickHandler = () => {
+        console.log('kek')
+        return <h1>kek</h1>
+    }
+
+    mouseEnterHandler = () => {
         this.setState({
-            focused: false
+            mouseOn: true
+        })
+    }
+
+    mouseLeaveHandler = () => {
+        this.setState({
+            mouseOn: false
         })
     }
 
@@ -45,10 +55,11 @@ export class Node extends React.Component {
                 }}            
                 onClick={this.focusNode}
                 onFocus={this.focusNode}  
-                onDoubleClick={(e) => {e.stopPropagation()}}
-                // onBlur={this.blurNode}                                
+                onDoubleClick={(e) => {e.stopPropagation()}}   
+                onMouseEnter={this.mouseEnterHandler}
+                onMouseLeave={this.mouseLeaveHandler}               
             >
-                {this.state.focused && 
+                {(this.state.mouseOn || this.state.focused) && 
                 <React.Fragment>
                     <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.top}`}></div>
                     <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.bottom}`}></div>
@@ -58,9 +69,20 @@ export class Node extends React.Component {
                 }                
                 <div 
                     className={styles.header} 
-                    data-element='header'                    
+                    data-element='header'     
+                    onDoubleClick={this.headerClickHandler}        
                 >
-                    <button onClick={this.btnClickHandler}>X</button>
+                    <button 
+                        onClick={this.btnClickHandler}
+                        className={styles.button}
+                    >
+                        {this.state.showEditor ? 
+                        <img src={buttonIcon} alt='hide editor'></img> :
+                        <img src={buttonIcon} 
+                            style={{transform: 'rotate(180deg)'}}
+                            alt='show editor'></img>
+                    }
+                    </button>
                 </div>
                 <div       
                     style={{

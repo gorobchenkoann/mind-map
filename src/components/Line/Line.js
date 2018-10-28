@@ -12,8 +12,6 @@ export class Line extends React.Component {
         })
     }
     render() {
-        console.log(this.props.from)
-        console.log(this.props.to)
         return (
             <svg style={{
                 position: 'absolute',

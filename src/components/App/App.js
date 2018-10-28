@@ -10,7 +10,7 @@ export class App extends React.Component {
         lines: [],
         currentNode: null,
         currentLine: null
-    }
+    }    
 
     makeId() {
         return Math.random().toString(36).substr(2, 9);
@@ -18,8 +18,8 @@ export class App extends React.Component {
 
     createNode(e) {
         let id = this.makeId();
-        let x = e.clientX - 90;
-        let y = e.clientY - 50;
+        let x = e.clientX - 110;
+        let y = e.clientY - 70;
  
         this.setState({
             nodes: [...this.state.nodes, {id, x, y}]
@@ -40,7 +40,6 @@ export class App extends React.Component {
         }
         if (e.target.getAttribute('data-element') === 'controller') {
             let id = this.makeId();
-            console.log(e.target)
             let from = e.target.getBoundingClientRect();
             let to = e.target.getBoundingClientRect();
             this.setState({
@@ -61,8 +60,8 @@ export class App extends React.Component {
             // })
         } else if (this.state.currentNode) {
             let currentCoords = {
-                x: e.clientX - 90, // 90 - half of element's width
-                y: e.clientY - 12.5 // 12.5 - half of element's header height
+                x: e.clientX - 110, // 110 - half of element's width
+                y: e.clientY - 20 // 20 - half of element's header height
             }
             let updatedNodes = this.state.nodes;
             let currentNodeIndex = this.state.nodes.findIndex(node => node.id === this.state.currentNode.id)
@@ -72,11 +71,11 @@ export class App extends React.Component {
             if (currentCoords.y < 0) {
                 currentCoords.y = 10;
             }
-            if (currentCoords.x + 180 > e.currentTarget.offsetWidth) {
-                currentCoords.x = e.currentTarget.offsetWidth - 190;
+            if (currentCoords.x + 220 > e.currentTarget.offsetWidth) {
+                currentCoords.x = e.currentTarget.offsetWidth - 230;
             }
-            if (currentCoords.y + 120 > e.currentTarget.offsetHeight) {
-                currentCoords.y = e.currentTarget.offsetHeight - 125;
+            if (currentCoords.y + 140 > e.currentTarget.offsetHeight) {
+                currentCoords.y = e.currentTarget.offsetHeight - 145;
             }
            
             updatedNodes[currentNodeIndex].x = currentCoords.x;
