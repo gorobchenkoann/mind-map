@@ -5,7 +5,6 @@ import { Editor } from 'slate-react';
 import { Value } from 'slate';
 
 import styles from './Node.scss';
-import buttonIcon from './drop-up-arrow.png';
 
 export class Node extends React.Component {    
     state = {
