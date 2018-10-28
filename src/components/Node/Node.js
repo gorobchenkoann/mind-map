@@ -4,10 +4,10 @@ import { Value } from 'slate';
 
 import styles from './Node.scss';
 
-export class Node extends React.Component {
-    
+export class Node extends React.Component {    
     state = {
-        focused: false
+        focused: false,
+        showEditor: true
     }
     node = React.createRef();
     
@@ -28,6 +28,12 @@ export class Node extends React.Component {
         })
     }
 
+    btnClickHandler = () => {
+        this.setState({
+            showEditor: !this.state.showEditor
+        })
+    }
+
     render() {
         return (                
             <div  
@@ -39,6 +45,7 @@ export class Node extends React.Component {
                 }}            
                 onClick={this.focusNode}
                 onFocus={this.focusNode}  
+                onDoubleClick={(e) => {e.stopPropagation()}}
                 // onBlur={this.blurNode}                                
             >
                 {this.state.focused && 
@@ -52,8 +59,13 @@ export class Node extends React.Component {
                 <div 
                     className={styles.header} 
                     data-element='header'                    
-                ></div>
-                <div                    
+                >
+                    <button onClick={this.btnClickHandler}>X</button>
+                </div>
+                <div       
+                    style={{
+                        display: this.state.showEditor ? 'block' : 'none'
+                    }}             
                     className={styles.editor}
                     ref={this.node}
                     contentEditable={true}  

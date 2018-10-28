@@ -1,13 +1,13 @@
 $node-width: 180px;
 $node-height: 100px;
 $editor-height: 75px;
-$header-height: $node-height - $editor-height;
+$header-height: 25px;
 $controll-diameter: 14px;
 
 .node {
     position: absolute;
     width: $node-width;
-    min-height: $node-height;
+    // min-height: $node-height;
     border: 1px solid #bdbdbd;
     box-sizing: border-box;
     outline: none; 
@@ -15,7 +15,6 @@ $controll-diameter: 14px;
 
 .header {
     height: $header-height;
-    border-bottom: 1px solid #bdbdbd;
     background-color: #dadada;
 
     &:hover {
@@ -27,6 +26,7 @@ $controll-diameter: 14px;
     min-height: $editor-height;
     padding: 5px;
     background-color: #ffffff;
+    border-top: 1px solid #bdbdbd;
     outline: none;
 
     // &:empty::before {
