@@ -52,9 +52,7 @@ export class Node extends React.Component {
                 style={{
                     top: this.props.y,
                     left: this.props.x                   
-                }}            
-                onClick={this.focusNode}
-                onFocus={this.focusNode}  
+                }}        
                 onDoubleClick={(e) => {e.stopPropagation()}}   
                 onMouseEnter={this.mouseEnterHandler}
                 onMouseLeave={this.mouseLeaveHandler}               
@@ -81,7 +79,7 @@ export class Node extends React.Component {
                         <img src={buttonIcon} 
                             style={{transform: 'rotate(180deg)'}}
                             alt='show editor'></img>
-                    }
+                        }
                     </button>
                 </div>
                 <div       
@@ -90,6 +88,8 @@ export class Node extends React.Component {
                     }}             
                     className={styles.editor}
                     ref={this.node}
+                    onClick={this.focusNode}
+                    onFocus={this.focusNode}  
                     contentEditable={true}  
                     placeholder={'Type something...'}  
                 >
