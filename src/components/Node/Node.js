@@ -1,8 +1,7 @@
 import React from 'react';
-import { IconContext } from 'react-icons';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
+import { Header, Button } from '../';
 
 import styles from './Node.scss';
 
@@ -58,33 +57,21 @@ export class Node extends React.Component {
                 onMouseEnter={this.mouseEnterHandler}
                 onMouseLeave={this.mouseLeaveHandler}               
             >
-                {(this.state.mouseOn || this.state.focused) && 
+                {this.state.mouseOn && 
                 <React.Fragment>
                     <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.top}`}></div>
                     <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.bottom}`}></div>
                     <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.left}`}></div>
                     <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.right}`}></div>
                 </React.Fragment>
-                }                
-                <div 
-                    className={styles.header} 
-                    data-element='header'     
-                    onDoubleClick={this.headerClickHandler}        
-                >
-                    <button 
-                        onClick={this.btnClickHandler}
-                        className={styles.button}
-                    >
-                        {this.state.showEditor ? 
-                        <IconContext.Provider value={{ color: '#e987d9'}}>
-                            <FaAngleUp />
-                        </IconContext.Provider> :
-                        <IconContext.Provider value={{ color: '#e987d9'}}>
-                            <FaAngleDown />
-                        </IconContext.Provider>
-                        }
-                    </button>
-                </div>
+                }   
+                <Header className={styles.header} onDoubleClick={this.headerClickHandler}>             
+                    <Button 
+                        onClick={this.btnClickHandler} 
+                        className={styles.button} 
+                        showEditor={this.state.showEditor}
+                    />
+                </Header>
                 <div       
                     style={{
                         display: this.state.showEditor ? 'block' : 'none'

@@ -1,8 +1,7 @@
 import React from 'react';
+import { Node, Line } from '../';
 
 import styles from './App.scss';
-import {Node} from '../';
-import {Line} from '../';
 
 export class App extends React.Component {
     state = {
