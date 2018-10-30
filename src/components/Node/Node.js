@@ -65,7 +65,10 @@ export class Node extends React.Component {
                     <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.right}`}></div>
                 </React.Fragment>
                 }   
-                <Header className={styles.header} onDoubleClick={this.headerClickHandler}>             
+                <Header 
+                    className={styles.header} 
+                    onDoubleClick={this.headerClickHandler}
+                >             
                     <Button 
                         onClick={this.btnClickHandler} 
                         className={styles.button} 
