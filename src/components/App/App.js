@@ -5,6 +5,7 @@ import styles from './App.scss';
 
 export class App extends React.Component {
     state = {
+        nodesNew: {},
         nodes: [],
         lines: [],
         currentNode: null,
@@ -35,7 +36,7 @@ export class App extends React.Component {
             let currentNodeInfo = currentNode.getBoundingClientRect();
             let currentNodeId = currentNode.getAttribute('id');
             this.setState({
-                currentNode: {info: currentNodeInfo, id: currentNodeId}
+                currentNode: {info: currentNodeInfo, id: currentNodeId},
             })
         }
         if (e.target.getAttribute('data-element') === 'controller') {
@@ -44,45 +45,40 @@ export class App extends React.Component {
             let to = e.target.getBoundingClientRect();
             this.setState({
                 lines: [...this.state.lines, {id, from, to}],
-                currentLine: id
+                currentLine: {
+                    id: id,
+                    x1: e.clientX,
+                    y1: e.clientY,
+                    x2: e.clientX,
+                    y2: e.clientY
+                }
             })
         }
     };
 
-    mouseMoveHandler = e => {
+    mouseMoveHandler = e  => {
         if (this.state.currentLine) {
-            // let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
-            // let updatedLines = this.state.lines;
-            // updatedLines[currentLineIndex].x2 = e.clientX;
-            // updatedLines[currentLineIndex].y2 = e.clientY;
-            // this.setState({
-            //     lines: updatedLines
-            // })
+            this.setState({
+                currentLine: { ...this.state.currentLine,
+                    x2: e.clientX,
+                    y2: e.clientY
+                }
+            })
         } else if (this.state.currentNode) {
             let currentCoords = {
                 x: e.clientX - 140, // 140 - half of element's width
                 y: e.clientY - 20 // 20 - half of element's header height
             }
+            
             let updatedNodes = this.state.nodes;
             let currentNodeIndex = this.state.nodes.findIndex(node => node.id === this.state.currentNode.id)
-            if (currentCoords.x < 0) {
-                currentCoords.x = 10;
-            }
-            if (currentCoords.y < 0) {
-                currentCoords.y = 10;
-            }
-            if (currentCoords.x + 280 > e.currentTarget.offsetWidth) {
-                currentCoords.x = e.currentTarget.offsetWidth - 290;
-            }
-            if (currentCoords.y + 140 > e.currentTarget.offsetHeight) {
-                currentCoords.y = e.currentTarget.offsetHeight - 145;
-            }
-           
+                        
             updatedNodes[currentNodeIndex].x = currentCoords.x;
             updatedNodes[currentNodeIndex].y = currentCoords.y; 
             this.setState({
                 nodes: updatedNodes
             })
+
         }
     };
 
@@ -90,14 +86,11 @@ export class App extends React.Component {
         if (this.state.currentLine) {
             if (e.target.getAttribute('data-element') === 'controller') { 
                 let to = e.target.getBoundingClientRect();               
-                let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
+                let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
                 let updatedLines = this.state.lines;
-                updatedLines[currentLineIndex].to = to;
-                //     // let coords = this.getControllerCoords(e);
-                //     // updatedLines[currentLineIndex].x2 = coords.horizontal;
-                //     // updatedLines[currentLineIndex].y2 = coords.vertical;                
+                updatedLines[currentLineIndex].to = to;              
             } else {
-                let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine)
+                let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
                 let updatedLines = this.state.lines;
                 updatedLines.splice(currentLineIndex, 1)
             }
@@ -135,6 +128,14 @@ export class App extends React.Component {
                 onMouseUp={this.mouseUpHandler}
             >
                 <svg className={styles.svg}>
+                    {this.state.currentLine && 
+                        <path stroke='#896899' strokeWidth={2}
+                            d={`M ${this.state.currentLine.x1} 
+                            ${this.state.currentLine.y1} 
+                            L ${this.state.currentLine.x2} 
+                            ${this.state.currentLine.y2} `}
+                        ></path>
+                    }
                     {this.state.lines.map(line => (
                         <Line 
                             from={line.from}

@@ -51,7 +51,7 @@ export class Node extends React.Component {
                 <Header 
                     className={styles.header} 
                     onDoubleClick={this.headerClickHandler}
-                >             
+                >          
                     <Button 
                         onClick={this.btnClickHandler} 
                         className={styles.button} 
