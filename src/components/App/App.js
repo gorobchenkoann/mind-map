@@ -1,11 +1,10 @@
 import React from 'react';
-import { Node, Line, TextEditor } from '../';
+import { Node, Line, TextEditor } from '..';
 
 import styles from './App.scss';
 
 export class App extends React.Component {
     state = {
-        nodesNew: {},
         nodes: [],
         lines: [],
         currentNode: null,
@@ -24,6 +23,27 @@ export class App extends React.Component {
         this.setState({
             nodes: [...this.state.nodes, {id, x, y}]
         }) 
+    };
+
+    drawLine(from, to, key) {
+        let fromNode = document.getElementById(from).getBoundingClientRect();
+        let toNode = document.getElementById(to).getBoundingClientRect();
+        let coords = {
+            x1: fromNode.left + 7,
+            y1: fromNode.top + 7,
+            x2: toNode.left + 7,
+            y2: toNode.top + 7
+        }
+        return(
+            <path key={key} stroke='#896899' strokeWidth={2}
+                d={`M ${coords.x1} 
+                    ${coords.y1}
+                    L ${coords.x2}
+                    ${coords.y2} `}
+            >
+            </path>
+        )
+ 
     }
 
     doubleClickHandler = e => {
@@ -41,8 +61,9 @@ export class App extends React.Component {
         }
         if (e.target.getAttribute('data-element') === 'controller') {
             let id = this.makeId();
-            let from = e.target.getBoundingClientRect();
-            let to = e.target.getBoundingClientRect();
+
+            let from = e.target.getAttribute('id');
+            let to = e.target.getAttribute('id');
             this.setState({
                 lines: [...this.state.lines, {id, from, to}],
                 currentLine: {
@@ -78,14 +99,13 @@ export class App extends React.Component {
             this.setState({
                 nodes: updatedNodes
             })
-
         }
     };
 
     mouseUpHandler = e => {  
         if (this.state.currentLine) {
             if (e.target.getAttribute('data-element') === 'controller') { 
-                let to = e.target.getBoundingClientRect();               
+                let to = e.target.id;               
                 let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
                 let updatedLines = this.state.lines;
                 updatedLines[currentLineIndex].to = to;              
@@ -93,8 +113,7 @@ export class App extends React.Component {
                 let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
                 let updatedLines = this.state.lines;
                 updatedLines.splice(currentLineIndex, 1)
-            }
-            
+            }            
             this.setState({
                 currentLine: null
             })
@@ -137,12 +156,7 @@ export class App extends React.Component {
                         ></path>
                     }
                     {this.state.lines.map(line => (
-                        <Line 
-                            from={line.from}
-                            to={line.to}
-                            key={line.id} 
-                            onClick={this.lineClickHandler}
-                        />
+                        this.drawLine(line.from, line.to, line.id)
                     ))}
                 </svg>
                 {this.state.nodes.map(node => (

@@ -27,6 +27,10 @@ export class Node extends React.Component {
         })
     }
 
+    makeId() {
+        return Math.random().toString(36).substr(2, 9);
+    };
+
     render() {
         return (                
             <div  
@@ -39,15 +43,18 @@ export class Node extends React.Component {
                 onDoubleClick={(e) => {e.stopPropagation()}}   
                 onMouseEnter={this.mouseEnterHandler}
                 onMouseLeave={this.mouseLeaveHandler}               
-            >                
-                {this.state.mouseOn && 
-                <React.Fragment>
-                    <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.top}`}></div>
-                    <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.bottom}`}></div>
-                    <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.left}`}></div>
-                    <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.right}`}></div>
-                </React.Fragment>
-                }   
+            >      
+                <div 
+                    style={{
+                        visibility: this.state.mouseOn ? 'visible' : 'hidden'
+                    }}
+                >
+                    <div id={this.props.id + '-top'} data-element='controller' className={`${styles.controller} ${styles.top}`}></div>
+                    <div id={this.props.id + '-bottom'} data-element='controller' className={`${styles.controller} ${styles.bottom}`}></div>
+                    <div id={this.props.id + '-left'} data-element='controller' className={`${styles.controller} ${styles.left}`}></div>
+                    <div id={this.props.id + '-right'} data-element='controller' className={`${styles.controller} ${styles.right}`}></div>
+                </div>
+                
                 <Header 
                     className={styles.header} 
                     onDoubleClick={this.headerClickHandler}
