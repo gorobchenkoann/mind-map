@@ -31,10 +31,11 @@ export class App extends React.Component {
 
     mouseDownHandler = e => {
         if (e.target.getAttribute('data-element') === 'header') {
-            let currentNode = e.target.parentElement.getBoundingClientRect();
-            let currentNodeId = e.target.parentElement.getAttribute('id');
+            let currentNode = e.target.parentElement;
+            let currentNodeInfo = currentNode.getBoundingClientRect();
+            let currentNodeId = currentNode.getAttribute('id');
             this.setState({
-                currentNode: {info: currentNode, id: currentNodeId}
+                currentNode: {info: currentNodeInfo, id: currentNodeId}
             })
         }
         if (e.target.getAttribute('data-element') === 'controller') {
