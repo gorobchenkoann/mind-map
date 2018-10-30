@@ -17,7 +17,7 @@ export class App extends React.Component {
 
     createNode(e) {
         let id = this.makeId();
-        let x = e.clientX - 110;
+        let x = e.clientX - 140;
         let y = e.clientY - 70;
  
         this.setState({
@@ -60,7 +60,7 @@ export class App extends React.Component {
             // })
         } else if (this.state.currentNode) {
             let currentCoords = {
-                x: e.clientX - 110, // 110 - half of element's width
+                x: e.clientX - 140, // 140 - half of element's width
                 y: e.clientY - 20 // 20 - half of element's header height
             }
             let updatedNodes = this.state.nodes;
@@ -71,8 +71,8 @@ export class App extends React.Component {
             if (currentCoords.y < 0) {
                 currentCoords.y = 10;
             }
-            if (currentCoords.x + 220 > e.currentTarget.offsetWidth) {
-                currentCoords.x = e.currentTarget.offsetWidth - 230;
+            if (currentCoords.x + 280 > e.currentTarget.offsetWidth) {
+                currentCoords.x = e.currentTarget.offsetWidth - 290;
             }
             if (currentCoords.y + 140 > e.currentTarget.offsetHeight) {
                 currentCoords.y = e.currentTarget.offsetHeight - 145;

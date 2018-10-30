@@ -13,12 +13,15 @@ export class TextEditor extends React.Component {
       this.setState({ value })
   }
 
+
   render() {
-      return <Editor 
-        className={this.props.className} 
-        value={this.state.value} 
-        onChange={this.onChange} 
-        placeholder='Type something...'
-    />
+      return (
+        <Editor 
+            className={this.props.className} 
+            value={this.state.value} 
+            onChange={this.onChange} 
+            placeholder='Type something...'
+        />
+      )
   }      
 }

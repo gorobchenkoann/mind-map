@@ -1,6 +1,4 @@
 import React from 'react';
-import { Editor } from 'slate-react';
-import { Value } from 'slate';
 import { Header, Button, TextEditor } from '../';
 
 import styles from './Node.scss';
@@ -9,12 +7,6 @@ export class Node extends React.Component {
     state = {
         mouseOn: false,
         showEditor: true,
-    }
-    node = React.createRef();
-
-    headerClickHandler = () => {
-        console.log('kek')
-        return <h1>kek</h1>
     }
 
     mouseEnterHandler = () => {
