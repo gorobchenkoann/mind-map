@@ -12,23 +12,14 @@ export class Line extends React.Component {
         })
     }
     render() {
-        return (
-            <svg style={{
-                position: 'absolute',
-                top: '0px',
-                left: '0px',
-                width: '100vw',
-                height: '100vh'
-            }}>
-                <path className={styles.line} onClick={this.props.onClick}
-                    d={`M 
-                        ${this.getCoords(this.props.from).horizontal} 
-                        ${this.getCoords(this.props.from).vertical} 
-                        L ${this.getCoords(this.props.to).horizontal} 
-                        ${this.getCoords(this.props.to).vertical} `}
-                >
-                </path>
-            </svg>
+        return (    
+            <path className={styles.line} onClick={this.props.onClick}
+                d={`M ${this.getCoords(this.props.from).horizontal} 
+                    ${this.getCoords(this.props.from).vertical} 
+                    L ${this.getCoords(this.props.to).horizontal} 
+                    ${this.getCoords(this.props.to).vertical} `}
+            >
+            </path>
         )
     }    
 }

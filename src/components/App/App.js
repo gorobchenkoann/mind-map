@@ -134,18 +134,16 @@ export class App extends React.Component {
                 onMouseMove={this.mouseMoveHandler}
                 onMouseUp={this.mouseUpHandler}
             >
+            <svg className={styles.svg}>
                 {this.state.lines.map(line => (
                     <Line 
-                        // x1={line.x1} 
-                        // y1={line.y1} 
-                        // x2={line.x2} 
-                        // y2={line.y2} 
                         from={line.from}
                         to={line.to}
                         key={line.id} 
                         onClick={this.lineClickHandler}
                     />
                 ))}
+            </svg>
                 {this.state.nodes.map(node => (
                     <Node x={node.x} y={node.y} key={node.id} id={node.id}/>
                 ))}                
