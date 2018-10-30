@@ -1,25 +1,16 @@
 import React from 'react';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
-import { Header, Button } from '../';
+import { Header, Button, TextEditor } from '../';
 
 import styles from './Node.scss';
 
 export class Node extends React.Component {    
     state = {
         mouseOn: false,
-        showEditor: true
+        showEditor: true,
     }
     node = React.createRef();
-      
-    componentDidMount() {
-        this.focusNode();
-    }
-
-    focusNode = () => {    
-        this.node.current.focus();
-    }
-
 
     headerClickHandler = () => {
         console.log('kek')
@@ -56,7 +47,7 @@ export class Node extends React.Component {
                 onDoubleClick={(e) => {e.stopPropagation()}}   
                 onMouseEnter={this.mouseEnterHandler}
                 onMouseLeave={this.mouseLeaveHandler}               
-            >
+            >                
                 {this.state.mouseOn && 
                 <React.Fragment>
                     <div id={Math.random().toString(36).substr(2, 9)} data-element='controller' className={`${styles.controller} ${styles.top}`}></div>
@@ -75,18 +66,9 @@ export class Node extends React.Component {
                         showEditor={this.state.showEditor}
                     />
                 </Header>
-                <div       
-                    style={{
-                        display: this.state.showEditor ? 'block' : 'none'
-                    }}             
-                    className={styles.editor}
-                    ref={this.node}
-                    onClick={this.focusNode}
-                    onFocus={this.focusNode}  
-                    contentEditable={true}  
-                    placeholder={'Type something...'}  
-                >
-                </div>                
+                {this.state.showEditor && 
+                    <TextEditor className={styles.editor}/>
+                }
             </div>
         )
     }    

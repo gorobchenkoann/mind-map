@@ -1,5 +1,5 @@
 import React from 'react';
-import { Node, Line } from '../';
+import { Node, Line, TextEditor } from '../';
 
 import styles from './App.scss';
 
@@ -134,20 +134,20 @@ export class App extends React.Component {
                 onMouseMove={this.mouseMoveHandler}
                 onMouseUp={this.mouseUpHandler}
             >
-            <svg className={styles.svg}>
-                {this.state.lines.map(line => (
-                    <Line 
-                        from={line.from}
-                        to={line.to}
-                        key={line.id} 
-                        onClick={this.lineClickHandler}
-                    />
-                ))}
-            </svg>
+                <svg className={styles.svg}>
+                    {this.state.lines.map(line => (
+                        <Line 
+                            from={line.from}
+                            to={line.to}
+                            key={line.id} 
+                            onClick={this.lineClickHandler}
+                        />
+                    ))}
+                </svg>
                 {this.state.nodes.map(node => (
                     <Node x={node.x} y={node.y} key={node.id} id={node.id}/>
                 ))}                
-            </div>        
+            </div>   
         )
     }
 }
