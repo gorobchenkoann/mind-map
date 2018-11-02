@@ -22,6 +22,13 @@ $controll-diameter: 14px;
     }
 }
 
+.editor {
+    min-height: $editor-height;
+    padding: 10px;
+    background-color: #ffffff;
+    outline: none;
+}
+
 .button {
     display: block;    
     align-self: center;
@@ -38,13 +45,6 @@ $controll-diameter: 14px;
         width: 100%;
         height: auto;
     }    
-}
-
-.editor {
-    min-height: $editor-height;
-    padding: 10px;
-    background-color: #ffffff;
-    outline: none;
 }
 
 .controller {

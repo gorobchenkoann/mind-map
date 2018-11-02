@@ -13,7 +13,6 @@ export class Header extends React.Component {
         })
     }
 
-
     render() {
         return (
             <div
@@ -26,8 +25,7 @@ export class Header extends React.Component {
                     value={this.state.title}
                     ref={this.input} 
                     onChange={this.inputChangeHandler} 
-                ></input>
-                
+                ></input>                
                 {this.props.children}
             </div>
         )

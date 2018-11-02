@@ -44,16 +44,8 @@ export class Node extends React.Component {
         return Math.random().toString(36).substr(2, 9);
     };
 
-    styleControlls() {
-        let visibility = this.state.mouseOn ? 'visible' : 'hidden';
-
-        return {
-            visibility: visibility
-        }
-    }
-
     render() {
-        return (                
+        return (     
             <div  
                 id={this.props.id}                            
                 className={styles.node}
@@ -72,7 +64,6 @@ export class Node extends React.Component {
 
                 <Header 
                     className={styles.header} 
-                    onDoubleClick={this.headerClickHandler}
                 >          
                     <Button 
                         onClick={this.btnClickHandler} 
@@ -80,6 +71,7 @@ export class Node extends React.Component {
                         showEditor={this.state.showEditor}
                     />
                 </Header>
+                
                 {this.state.showEditor && 
                     <TextEditor className={styles.editor}/>
                 }
