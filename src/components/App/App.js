@@ -5,6 +5,7 @@ import styles from './App.scss';
 
 export class App extends React.Component {
     state = {
+        nodeTree: [],
         nodes: [],
         lines: [],
         currentNode: null,
@@ -21,7 +22,8 @@ export class App extends React.Component {
         let y = e.clientY - 70;
  
         this.setState({
-            nodes: [...this.state.nodes, {id, x, y}]
+            nodes: [...this.state.nodes, {id, x, y}],
+            nodeTree: [...this.state.nodes, {id, pos: {x: x, y: y}, children: []}]
         }) 
     };
 
@@ -60,6 +62,7 @@ export class App extends React.Component {
             })
         }
         if (e.target.getAttribute('data-element') === 'controller') {
+            console.log(e.target)
             let id = this.makeId();
 
             let from = e.target.getAttribute('id');
@@ -108,7 +111,10 @@ export class App extends React.Component {
                 let to = e.target.id;               
                 let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
                 let updatedLines = this.state.lines;
-                updatedLines[currentLineIndex].to = to;              
+                updatedLines[currentLineIndex].to = to;    
+                
+                // add child node
+
             } else {
                 let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
                 let updatedLines = this.state.lines;

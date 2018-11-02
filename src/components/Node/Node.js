@@ -3,6 +3,19 @@ import { Header, Button, TextEditor } from '../';
 
 import styles from './Node.scss';
 
+const Controller = ({id, position, mouseOn}) => {
+    return (
+        <div 
+            style={{
+                visibility: mouseOn ? 'visible' : 'hidden'
+            }}
+            id={`${id}-${position}`} 
+            data-element='controller' 
+            className={`${styles.controller} ${styles[position]}`}
+        ></div>
+    )
+}
+
 export class Node extends React.Component {    
     state = {
         mouseOn: false,
@@ -31,6 +44,14 @@ export class Node extends React.Component {
         return Math.random().toString(36).substr(2, 9);
     };
 
+    styleControlls() {
+        let visibility = this.state.mouseOn ? 'visible' : 'hidden';
+
+        return {
+            visibility: visibility
+        }
+    }
+
     render() {
         return (                
             <div  
@@ -44,17 +65,11 @@ export class Node extends React.Component {
                 onMouseEnter={this.mouseEnterHandler}
                 onMouseLeave={this.mouseLeaveHandler}               
             >      
-                <div 
-                    style={{
-                        visibility: this.state.mouseOn ? 'visible' : 'hidden'
-                    }}
-                >
-                    <div id={this.props.id + '-top'} data-element='controller' className={`${styles.controller} ${styles.top}`}></div>
-                    <div id={this.props.id + '-bottom'} data-element='controller' className={`${styles.controller} ${styles.bottom}`}></div>
-                    <div id={this.props.id + '-left'} data-element='controller' className={`${styles.controller} ${styles.left}`}></div>
-                    <div id={this.props.id + '-right'} data-element='controller' className={`${styles.controller} ${styles.right}`}></div>
-                </div>
-                
+                <Controller id={this.props.id} position='top' mouseOn={this.state.mouseOn}/>
+                <Controller id={this.props.id} position='bottom' mouseOn={this.state.mouseOn}/>
+                <Controller id={this.props.id} position='left' mouseOn={this.state.mouseOn}/>
+                <Controller id={this.props.id} position='right' mouseOn={this.state.mouseOn}/>
+
                 <Header 
                     className={styles.header} 
                     onDoubleClick={this.headerClickHandler}
