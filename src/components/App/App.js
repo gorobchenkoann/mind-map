@@ -5,10 +5,10 @@ import styles from './App.scss';
 
 export class App extends React.Component {
     state = {
-        nodes: [],
+        nodes: {},
         lines: [],
         currentNode: null,
-        currentLine: null
+        currentLine: null,
     }    
 
     makeId() {
@@ -21,7 +21,13 @@ export class App extends React.Component {
         let y = e.clientY - 70;
  
         this.setState({
-            nodes: [...this.state.nodes, {id, x, y, editor: true}]
+            nodes: {
+                ...this.state.nodes,
+                [id]: {
+                    x: x,
+                    y: y
+                }
+            }
         }) 
     };
 
@@ -87,12 +93,6 @@ export class App extends React.Component {
         return(
             <path key={key} stroke='#896899' strokeWidth={2} fill='transparent'
                 d={d}
-                // d={`M ${coords.x1} 
-                //     ${coords.y1}
-                //     Q ${coords.x1 - 100}
-                //     ${coords.y2 + 100}
-                //     ${coords.x2}
-                //     ${coords.y2} `}
             >
             </path>
         )
@@ -104,14 +104,12 @@ export class App extends React.Component {
     };
 
     mouseDownHandler = e => {
-        console.log(e.target)
+        // drag node
         if (e.target.getAttribute('data-element') === 'header') {
-            let currentNode = e.target.parentElement;
-            let currentNodeId = currentNode.getAttribute('id');
-            this.setState({
-                currentNode: {id: currentNodeId},
-            })
+            let currentNode = e.target.parentElement.getAttribute('id');
+            this.setState({ currentNode })
         }
+        // draw line
         if (e.target.getAttribute('data-element') === 'controller') {
             let id = this.makeId();
             let from = e.target.getAttribute('id');
@@ -141,14 +139,15 @@ export class App extends React.Component {
             let currentCoords = {
                 x: e.clientX - 140, // 140 - half of element's width
                 y: e.clientY - 20 // 20 - half of element's header height
-            }            
-            let updatedNodes = this.state.nodes;
-            let currentNodeIndex = this.state.nodes.findIndex(node => node.id === this.state.currentNode.id)                        
-            updatedNodes[currentNodeIndex].x = currentCoords.x;
-            updatedNodes[currentNodeIndex].y = currentCoords.y; 
-            this.setState({
-                nodes: updatedNodes
-            })
+            } 
+            let nodes = {
+                ...this.state.nodes, 
+                [this.state.currentNode]: {
+                    x: currentCoords.x,
+                    y: currentCoords.y
+                }
+            }
+            this.setState({ nodes })
         }
     };
 
@@ -205,8 +204,8 @@ export class App extends React.Component {
                         this.drawLine(line.from, line.to, line.id)                      
                     )}
                 </svg>
-                {this.state.nodes.map(node => (
-                    <Node x={node.x} y={node.y} key={node.id} id={node.id} />
+                {Object.entries(this.state.nodes).map(([id, position]) => (
+                    <Node x={position.x} y={position.y} key={id} id={id} />
                 ))}                
             </div>   
         )
