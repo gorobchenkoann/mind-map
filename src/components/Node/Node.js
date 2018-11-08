@@ -73,7 +73,8 @@ export class Node extends React.Component {
                 </Header>
                 
                 {this.state.showEditor && 
-                    <TextEditor className={styles.editor}/>
+                        this.props.children
+                    // <TextEditor className={styles.editor} onChange={this.props.changeEditorValue}/>
                 }
             </div>
         )

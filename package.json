@@ -21,6 +21,7 @@
     "react-icons": "^3.2.2",
     "sass": "^1.14.2",
     "slate": "^0.43.0",
+    "slate-plain-serializer": "^0.6.23",
     "slate-react": "^0.21.1"
   },
   "devDependencies": {

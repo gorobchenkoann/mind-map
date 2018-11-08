@@ -1,4 +1,6 @@
 import React from 'react';
+import Plain from 'slate-plain-serializer';
+import { Editor } from 'slate-react';
 import { Node } from '..';
 
 import styles from './App.scss';
@@ -19,13 +21,15 @@ export class App extends React.Component {
         let id = this.makeId();
         let x = e.clientX - 140;
         let y = e.clientY - 70;
+        let text = Plain.deserialize("");
  
         this.setState({
             nodes: {
                 ...this.state.nodes,
                 [id]: {
+                    text: text,
                     x: x,
-                    y: y
+                    y: y                    
                 }
             }
         }) 
@@ -143,6 +147,7 @@ export class App extends React.Component {
             let nodes = {
                 ...this.state.nodes, 
                 [this.state.currentNode]: {
+                    ...this.state.nodes[this.state.currentNode],
                     x: currentCoords.x,
                     y: currentCoords.y
                 }
@@ -175,10 +180,15 @@ export class App extends React.Component {
         }               
     };
 
-    changeEditorState = () => {
-        this.setState({
-            showEditor: !this.state.showEditor
-        })
+    editorChangeHandler = ({value}, id) => {
+        let nodes = {
+            ...this.state.nodes, 
+            [id]: {
+                ...this.state.nodes[id],
+                text: value
+            }
+        }
+        this.setState({ nodes })
     };
 
     render() {
@@ -204,8 +214,14 @@ export class App extends React.Component {
                         this.drawLine(line.from, line.to, line.id)                      
                     )}
                 </svg>
-                {Object.entries(this.state.nodes).map(([id, position]) => (
-                    <Node x={position.x} y={position.y} key={id} id={id} />
+                {Object.entries(this.state.nodes).map(([id, node]) => (
+                    <Node x={node.x} y={node.y} key={id} id={id} >
+                        <Editor 
+                            className={styles.editor} 
+                            value={node.text} 
+                            onChange={(editor) => this.editorChangeHandler(editor, id)} 
+                        />
+                    </Node>
                 ))}                
             </div>   
         )
