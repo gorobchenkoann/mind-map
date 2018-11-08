@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Button, TextEditor } from '../';
+import { Header, Button } from '../';
 
 import styles from './Node.scss';
 

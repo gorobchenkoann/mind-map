@@ -3,4 +3,3 @@ export { Node } from './Node/Node';
 export { Line } from './Line/Line';
 export { Header } from './Node/Header';
 export { Button } from './Node/Button';
-export { TextEditor } from './Node/Editor';
