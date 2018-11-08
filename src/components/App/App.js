@@ -8,7 +8,7 @@ import styles from './App.scss';
 export class App extends React.Component {
     state = {
         nodes: {},
-        lines: [],        
+        lines: {},        
         currentLine: null,
     }   
 
@@ -51,7 +51,14 @@ export class App extends React.Component {
             let from = e.target.getAttribute('id');
             let to = e.target.getAttribute('id');
             this.setState({
-                lines: [...this.state.lines, {id, from, to}],
+                lines: {
+                    ...this.state.lines,
+                    [id]: {
+                        from: from,
+                        to: to
+                    }
+                },
+                // lines: [...this.state.lines, {id, from, to}],
                 currentLine: {
                     id: id,
                     x1: e.clientX,
@@ -91,15 +98,24 @@ export class App extends React.Component {
     mouseUpHandler = e => {  
         if (this.state.currentLine) {
             if (e.target.getAttribute('data-element') === 'controller') { 
-                let to = e.target.id;               
-                let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
-                let updatedLines = this.state.lines;
-                updatedLines[currentLineIndex].to = to;                
-            } else {
-                let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
-                let updatedLines = this.state.lines;
-                updatedLines.splice(currentLineIndex, 1)
-            }            
+                let to = e.target.id;         
+                let lines = {
+                    ...this.state.lines,
+                    [this.state.currentLine.id]: {
+                        ...this.state.lines[this.state.currentLine.id],
+                        to: to
+                    }
+                }      
+                this.setState({ lines });
+                // let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
+                // let updatedLines = this.state.lines;
+                // updatedLines[currentLineIndex].to = to;                
+            } 
+            // else {
+            //     let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
+            //     let updatedLines = this.state.lines;
+            //     updatedLines.splice(currentLineIndex, 1)
+            // }            
             this.setState({
                 currentLine: null
             })
@@ -140,8 +156,8 @@ export class App extends React.Component {
                             ${this.state.currentLine.y2} `}
                         ></path>
                     }
-                    {this.state.lines.map(line => 
-                        <Line from={line.from} to={line.to} id={line.id}/>                    
+                    {Object.entries(this.state.lines).map(([id, line]) => 
+                        <Line from={line.from} to={line.to} id={id} key={id}/>                    
                     )}
                 </svg>
                 {Object.entries(this.state.nodes).map(([id, node]) => (
