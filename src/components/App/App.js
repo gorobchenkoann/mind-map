@@ -8,10 +8,11 @@ import styles from './App.scss';
 export class App extends React.Component {
     state = {
         nodes: {},
-        lines: [],
-        currentNode: null,
+        lines: [],        
         currentLine: null,
-    }    
+    }   
+
+    currentNode = null;
 
     makeId() {
         return Math.random().toString(36).substr(2, 9);
@@ -42,8 +43,7 @@ export class App extends React.Component {
     mouseDownHandler = e => {
         // drag node
         if (e.target.getAttribute('data-element') === 'header') {
-            let currentNode = e.target.parentElement.getAttribute('id');
-            this.setState({ currentNode })
+            this.currentNode = e.target.parentElement.getAttribute('id');
         }
         // draw line
         if (e.target.getAttribute('data-element') === 'controller') {
@@ -71,15 +71,15 @@ export class App extends React.Component {
                     y2: e.clientY
                 }
             })
-        } else if (this.state.currentNode) {
+        } else if (this.currentNode) {
             let currentCoords = {
                 x: e.clientX - 140, // 140 - half of element's width
                 y: e.clientY - 20 // 20 - half of element's header height
             } 
             let nodes = {
                 ...this.state.nodes, 
-                [this.state.currentNode]: {
-                    ...this.state.nodes[this.state.currentNode],
+                [this.currentNode]: {
+                    ...this.state.nodes[this.currentNode],
                     x: currentCoords.x,
                     y: currentCoords.y
                 }
@@ -105,10 +105,8 @@ export class App extends React.Component {
             })
         }
 
-        if (this.state.currentNode) {
-            this.setState({
-                currentNode: null
-            })
+        if (this.currentNode) {
+            this.currentNode = null;
         }               
     };
 
