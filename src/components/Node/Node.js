@@ -1,4 +1,6 @@
 import React from 'react';
+import { IconContext } from 'react-icons';
+import { FaExpand } from 'react-icons/fa';
 import { Header, Button } from '../';
 
 import styles from './Node.scss';
@@ -52,11 +54,11 @@ export class Node extends React.Component {
                 className={styles.node}
                 style={{
                     top: y,
-                    left: x                   
+                    left: x                                      
                 }}        
                 onDoubleClick={(e) => {e.stopPropagation()}}   
                 onMouseEnter={this.mouseEnterHandler}
-                onMouseLeave={this.mouseLeaveHandler}               
+                onMouseLeave={this.mouseLeaveHandler}        
             >      
                 <Controller id={id} position='top' mouseOn={this.state.mouseOn}/>
                 <Controller id={id} position='bottom' mouseOn={this.state.mouseOn}/>
@@ -71,11 +73,31 @@ export class Node extends React.Component {
                         className={styles.button} 
                         showEditor={this.state.showEditor}
                     />
-                </Header>
+                </Header>                
                 
                 {this.state.showEditor && 
-                    this.props.children
+                <>
+                    {this.props.children}
+
+                    <button
+                    data-element='resize'
+                    className={styles.button}
+                    style={{
+                        position: 'absolute',
+                        bottom: 10,
+                        right: 10,
+                        cursor: 'nwse-resize'
+                    }}
+                    >
+                        r
+                        {/* <IconContext.Provider value={{ color: '#e987d9'}}>
+                            <FaExpand />
+                        </IconContext.Provider> */}
+                    </button>
+                </>
                 }
+
+                
             </div>
         )
     }    

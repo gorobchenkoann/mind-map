@@ -10,8 +10,15 @@ export class App extends React.Component {
         nodes: {},
         lines: {},        
         currentLine: null,
-    }   
-
+    }  
+    resize = {
+        isResizing: false,
+        id: null,
+        startW: null,
+        startH: null,
+        startX: null,
+        startY: null
+    } 
     currentNode = null;
 
     makeId() {
@@ -30,7 +37,7 @@ export class App extends React.Component {
                 [id]: {
                     text: text,
                     x: x,
-                    y: y                    
+                    y: y                  
                 }
             }
         }) 
@@ -58,7 +65,6 @@ export class App extends React.Component {
                         to: to
                     }
                 },
-                // lines: [...this.state.lines, {id, from, to}],
                 currentLine: {
                     id: id,
                     x1: e.clientX,
@@ -67,6 +73,22 @@ export class App extends React.Component {
                     y2: e.clientY
                 }
             })
+        }
+        if (e.target.getAttribute('data-element') === 'resize') {
+            // this.resize = true;
+            let id = e.target.parentElement.getAttribute('id');
+            let node = document.getElementById(id).getBoundingClientRect();
+            let startX = e.clientX;
+            let startY = e.clientY;
+
+            this.resize = {
+                isResizing: true,
+                id: id,
+                startW: node.width,
+                startH: node.height,
+                startX: startX,
+                startY: startY
+            }
         }
     };
 
@@ -93,6 +115,16 @@ export class App extends React.Component {
             }
             this.setState({ nodes })
         }
+        if (this.resize.isResizing) {
+            let node = document.getElementById(this.resize.id);
+            let newWidth = this.resize.startW + (e.clientX - this.resize.startX);
+            let newHeight = this.resize.startH + (e.clientY - this.resize.startY);
+
+            if (newWidth >= 220 && newHeight >= 160) {
+                node.style.width = `${newWidth}px`;
+                node.style.height = `${newHeight}px`;
+            }            
+        }
     };
 
     mouseUpHandler = e => {  
@@ -106,24 +138,19 @@ export class App extends React.Component {
                         to: to
                     }
                 }      
-                this.setState({ lines });
-                // let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
-                // let updatedLines = this.state.lines;
-                // updatedLines[currentLineIndex].to = to;                
-            } 
-            // else {
-            //     let currentLineIndex = this.state.lines.findIndex(line => line.id === this.state.currentLine.id)
-            //     let updatedLines = this.state.lines;
-            //     updatedLines.splice(currentLineIndex, 1)
-            // }            
+                this.setState({ lines });               
+            }                     
             this.setState({
                 currentLine: null
             })
         }
-
         if (this.currentNode) {
             this.currentNode = null;
-        }               
+        }       
+        if (this.resize) {
+            this.resize = {}                
+        }        
+        console.log(this.resize)
     };
 
     editorChangeHandler = ({value}, id) => {

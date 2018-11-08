@@ -4,6 +4,8 @@ $header-height: 40px;
 $controll-diameter: 14px;
 
 .node {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     width: $node-width;
     box-sizing: border-box;
@@ -22,17 +24,8 @@ $controll-diameter: 14px;
     }
 }
 
-.editor {
-    min-height: $editor-height;
-    padding: 10px;
-    background-color: #ffffff;
-    outline: none;
-}
-
 .button {
     display: block;    
-    align-self: center;
-    margin-left: auto;
     padding: 0;
     width: $header-height / 2;
     height: $header-height / 2;

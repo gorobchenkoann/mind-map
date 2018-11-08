@@ -8,6 +8,10 @@ export class Button extends React.Component {
             <button
                 onClick={this.props.onClick}
                 className={this.props.className}
+                style={{
+                    alignSelf: 'center',
+                    marginLeft: 'auto'
+                }}
             >
             {this.props.showEditor ? 
                 <IconContext.Provider value={{ color: '#e987d9'}}>
