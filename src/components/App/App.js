@@ -80,7 +80,7 @@ export class App extends React.Component {
             let node = document.getElementById(id).getBoundingClientRect();
             let startX = e.clientX;
             let startY = e.clientY;
-
+            
             this.resize = {
                 isResizing: true,
                 id: id,
@@ -120,9 +120,9 @@ export class App extends React.Component {
             let newWidth = this.resize.startW + (e.clientX - this.resize.startX);
             let newHeight = this.resize.startH + (e.clientY - this.resize.startY);
 
-            if (newWidth >= 220 && newHeight >= 160) {
+            if (newWidth >= 220 && newHeight >= 120) {
                 node.style.width = `${newWidth}px`;
-                node.style.height = `${newHeight}px`;
+                node.style.minHeight = `${newHeight}px`;
             }            
         }
     };
