@@ -4,7 +4,7 @@ import { Header, Button } from '../';
 import styles from './Node.scss';
 
 const Controller = ({id, position, mouseOn}) => {
-    return (
+    return (        
         <div 
             style={{
                 visibility: mouseOn ? 'visible' : 'hidden'
@@ -45,22 +45,23 @@ export class Node extends React.Component {
     };
 
     render() {
+        let { id, x, y } = this.props;
         return (     
             <div  
-                id={this.props.id}                            
+                id={id}                            
                 className={styles.node}
                 style={{
-                    top: this.props.y,
-                    left: this.props.x                   
+                    top: y,
+                    left: x                   
                 }}        
                 onDoubleClick={(e) => {e.stopPropagation()}}   
                 onMouseEnter={this.mouseEnterHandler}
                 onMouseLeave={this.mouseLeaveHandler}               
             >      
-                <Controller id={this.props.id} position='top' mouseOn={this.state.mouseOn}/>
-                <Controller id={this.props.id} position='bottom' mouseOn={this.state.mouseOn}/>
-                <Controller id={this.props.id} position='left' mouseOn={this.state.mouseOn}/>
-                <Controller id={this.props.id} position='right' mouseOn={this.state.mouseOn}/>
+                <Controller id={id} position='top' mouseOn={this.state.mouseOn}/>
+                <Controller id={id} position='bottom' mouseOn={this.state.mouseOn}/>
+                <Controller id={id} position='left' mouseOn={this.state.mouseOn}/>
+                <Controller id={id} position='right' mouseOn={this.state.mouseOn}/>
 
                 <Header 
                     className={styles.header} 
@@ -73,8 +74,7 @@ export class Node extends React.Component {
                 </Header>
                 
                 {this.state.showEditor && 
-                        this.props.children
-                    // <TextEditor className={styles.editor} onChange={this.props.changeEditorValue}/>
+                    this.props.children
                 }
             </div>
         )
