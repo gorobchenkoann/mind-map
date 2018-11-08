@@ -32,7 +32,8 @@ $controll-diameter: 14px;
     background-color: transparent;
     border: none;
     cursor: pointer;
-    outline-color: #e987d9;
+    // outline-color: #e987d9;
+    outline: none;
 
     * {
         width: 100%;

@@ -74,9 +74,9 @@ export class App extends React.Component {
                 }
             })
         }
-        if (e.target.getAttribute('data-element') === 'resize') {
-            // this.resize = true;
-            let id = e.target.parentElement.getAttribute('id');
+        if (e.target.closest('button') && e.target.closest('button').getAttribute('data-element') === 'resize') {
+            // e.target returns svg (react-icons)
+            let id = e.target.closest('button').parentElement.getAttribute('id');
             let node = document.getElementById(id).getBoundingClientRect();
             let startX = e.clientX;
             let startY = e.clientY;

@@ -23,6 +23,14 @@ export class Node extends React.Component {
         mouseOn: false,
         showEditor: true,
     }
+    resize = {
+        isResizing: false,
+        id: null,
+        startW: null,
+        startH: null,
+        startX: null,
+        startY: null
+    } 
 
     mouseEnterHandler = () => {
         this.setState({
@@ -88,11 +96,10 @@ export class Node extends React.Component {
                         right: 10,
                         cursor: 'nwse-resize'
                     }}
-                    >
-                        r
-                        {/* <IconContext.Provider value={{ color: '#e987d9'}}>
+                    >                        
+                        <IconContext.Provider value={{ color: '#e987d9'}}>
                             <FaExpand />
-                        </IconContext.Provider> */}
+                        </IconContext.Provider>
                     </button>
                 </>
                 }
